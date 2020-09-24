@@ -1,0 +1,45 @@
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Leaf-Similar Trees.
+Memory Usage: 37.2 MB, less than 74.13% of Java online submissions for Leaf-Similar Trees.
+
+(NOT ALWAYS 0ms, this is version 1)
+
+Solution:
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    
+    //we have to keep track of two lists, so whenever we get to a leaf we add to an ArrayList
+ 
+    public boolean leafSimilar(TreeNode root1, TreeNode root2) {
+        ArrayList<Integer> l1 = new ArrayList<Integer>();
+        ArrayList<Integer> l2 = new ArrayList<Integer>();
+        DFS(root1, l1);
+        DFS(root2, l2);
+        return l1.equals(l2);
+    }
+    
+    public void DFS(TreeNode root, ArrayList<Integer> list) {
+        if (root == null) return;
+        
+        DFS(root.left, list);
+        DFS(root.right, list);
+        
+        //if we are at a child/parent with no children, then add to the list
+        if (root.left == null && root.right == null) {
+            list.add(root.val);
+        }
+    }
+}
