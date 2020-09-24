@@ -1,0 +1,49 @@
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Maximum Depth of Binary Tree.
+Memory Usage: 39.1 MB, less than 95.56% of Java online submissions for Maximum Depth of Binary Tree.
+
+Solution:
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    
+    int level = 0;
+    int maxLevel = 0;
+    
+    public int maxDepth(TreeNode root) {
+        
+        DFS(root);
+        return maxLevel;
+    }
+    
+    public void DFS(TreeNode root) {
+        
+        //at the end, or nothing to begin with
+        if (root == null) return;
+        
+        //we are at a new level, increment
+        level++;
+        
+        DFS(root.left);
+        DFS(root.right);
+        
+        //Check the current level against the current max
+        if (level > maxLevel)
+            maxLevel = level;
+        
+        //we are about to leave the level, decrement
+        level--;
+    }
+}
