@@ -1,0 +1,59 @@
+Java Solution
+
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Maximum Depth of N-ary Tree.
+Memory Usage: 39.5 MB, less than 79.68% of Java online submissions for Maximum Depth of N-ary Tree.
+
+Solution:
+
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public List<Node> children;
+
+    public Node() {}
+
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, List<Node> _children) {
+        val = _val;
+        children = _children;
+    }
+};
+*/
+
+class Solution {
+    
+    int level = 0;
+    int maxLevel = 0;
+    
+    public int maxDepth(Node root) {
+        
+        DFS(root);
+        
+        return maxLevel;    
+    }
+    
+    public void DFS (Node root) {
+        
+        //return 0 as we are at the an end, or nothing at all
+        if (root == null) return;
+        
+        //if we get here we are at a new level
+        level++;
+        
+        for(int i = 0; i < root.children.size(); i++) {
+            DFS(root.children.get(i));
+        }
+        
+        //set a max level if it surpasses the current max
+        if (level > maxLevel)
+            maxLevel = level;
+        
+        //decrement the level as we are about to go back up a level
+        level--;
+         
+    }
+}

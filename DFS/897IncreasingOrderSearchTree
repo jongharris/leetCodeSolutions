@@ -1,0 +1,55 @@
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Increasing Order Search Tree.
+Memory Usage: 39.6 MB, less than 5.18% of Java online submissions for Increasing Order Search Tree.
+
+Solution:
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    
+    TreeNode current = null;
+    TreeNode head = null;
+    public TreeNode increasingBST(TreeNode root) {
+        
+        inOrder(root);
+        return head;
+    }
+    
+    public void inOrder(TreeNode root) {
+        
+        if (root == null) return;
+        
+        inOrder(root.left);
+        
+        //first instance will be the head of the new list
+        if (head == null) {
+            head = new TreeNode(root.val, null, null);
+            current = head;
+            
+            if (root.right != null)
+                inOrder(root.right);
+            return;
+        }
+        
+       
+        current.right = new TreeNode(root.val, null,null);
+        current = current.right;
+
+        inOrder(root.right);
+        
+   
+    }
+}
